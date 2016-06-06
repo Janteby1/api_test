@@ -72,8 +72,45 @@ def get_commute_stats(params, destinations,places, api):
 
     return neighborhood_commute_dict
 
+
+def get_origin_commute(params, destinations, place, api):
+    print ("origin here")
+    missing=0
+    # this creates a dict with a list of all the neighborhoods
+    neighborhood_commute_dict = dict.fromkeys(place)
+
+    # calls the api with the params for every origin 
+    origin = place+"+NY"
+    print (origin)
+    params['origins']=origin 
+
+    info = api.get('distancematrix/json', params=params)
+    response_info = info.json()
+
+    try:
+        time_sq_score = response_info["rows"][0]["elements"][0]["duration"]["value"]
+        union_sq_score = response_info["rows"][0]["elements"][1]["duration"]["value"]
+        chamber_st_score = response_info["rows"][0]["elements"][2]["duration"]["value"]
+        fifty_ninth_st_score = response_info["rows"][0]["elements"][3]["duration"]["value"]
+
+        # this is the avg time it takes to get from the origin to the 4 major destinations, rounded to 4 places
+        total_score_seconds = ((time_sq_score+union_sq_score+chamber_st_score+fifty_ninth_st_score)/4)
+        total_score_min = round((total_score_seconds/60),3)
+
+    except: 
+        total_score_min = 0 #this happens for 3 places, couldnt find them using conventional searches
+        missing += 1
+
+    print(total_score_min)
+    return total_score_min
+
+
 def run():
     commute = get_commute_stats(params, destinations,places, api)
+    return commute
+
+def run_origin(place):
+    commute = get_origin_commute(params, destinations,place, api)
     return commute
 
 

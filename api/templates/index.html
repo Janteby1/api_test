@@ -34,11 +34,35 @@
                 <h2 id="blue">Welcome to the API Test!</h2>
                 <h4 id="blue">Click the button to load a cool chart</h4>
                 <br>
-                <h6><em>Chart shows real time commute averages for different places across NYC to 4 populare destinations. <br> 	Data is collected using the Google Distance Matrix API</em></h6>
+                <h6><em>Chart shows real time commute averages for different places across NYC to 4 populare destinations. <br> Data is collected using the Google Distance Matrix API</em></h6>
                 <br>
                 <a href="#" id="chart_button" class="btn-large waves-effect waves-light blue space" type="submit" name="action">Load Chart</a>
 
 				<div id="message"></div>
+
+
+
+				<br><br>
+                <h5 id="blue">Or, <br> Enter a origin neighborhood to find your commute time</h5>
+
+				<div class="row">
+					<div class="container">
+    				<form action="" id='form' method="POST">
+						<div class="col s8">
+					          <input id="origin" type="text" name="origin">
+					          <label for="origin">Origin</label>
+						</div>
+						<div class="col s3">	
+							<button class="btn waves-effect waves-light blue" type="submit" name="action">Submit
+							    <i class="material-icons right">send</i>
+						    </button>
+						</div>
+					</form>
+					</div>
+				</div>
+
+               <div id="result_div" class="row">
+               </div>
 
                <div id="chart_div" class="row">
 					<div id="chart" class="col s12 m12 l12"></div>
