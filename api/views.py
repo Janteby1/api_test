@@ -8,11 +8,6 @@ class Index(View):
     def get(self, request):
         return render(request, "index.html")
 
-class Api(View):
-    def post(self,request):
-        data = distance_api.run()
-        return JsonResponse({"success": True, 'data': data })
-
 class Calc(View):
     def post(self,request):
         if request.is_ajax():
@@ -24,5 +19,7 @@ class Calc(View):
             data = json.loads(body)
 
         origin=data.get("origin")
-        data = distance_api.run_origin(origin)
+        destination=data.get("destination")
+        
+        data = distance_api.run_origin(origin, destination)
         return JsonResponse({"success": True, 'data': data })
